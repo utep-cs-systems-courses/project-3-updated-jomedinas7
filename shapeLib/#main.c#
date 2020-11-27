@@ -86,7 +86,7 @@ main()
   drawString5x7((width>>1) - 20, 20, "Arena", COLOR_GREEN, COLOR_RED);
   
   drawArena();
-  fillCircle(pcol, prow, RADIUS, chords50, COLOR_RED);
+  fillCircle(pcol, prow, RADIUS, chords14, COLOR_RED);
   
   or_sr(0x18);  /* CPU off, GIE on */
 }
