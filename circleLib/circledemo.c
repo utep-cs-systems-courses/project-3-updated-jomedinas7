@@ -33,7 +33,7 @@ Layer layer2 = {
   &layer0
 };
 
-void drawDiamond(char center, u_int shapeColor)
+void drawHeartBottom(char center, u_int shapeColor)
 
 {
   for(u_char r = 0; r < 11; r++) {
@@ -62,6 +62,6 @@ main()
 
   layerDraw(&layer2);
   // layerDraw(&layer1);
-  drawDiamond(48,COLOR_RED);
+  drawHeartBottom(48,COLOR_RED);
   drawString5x7(10,40, "Spread the love.", COLOR_GREEN, COLOR_RED);
 }
