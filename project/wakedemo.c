@@ -2,12 +2,15 @@
 #include <libTimer.h>
 #include "lcdutils.h"
 #include "lcddraw.h"
+
 #include "stateMachines.h"
 #include "led.h"
 #include "buzzer.h"
 #include "buzzerStateMachines.h"
 #include "p2switches.h"
 
+#include "abCircle.h"
+#include "shape.h"
 
 #define LED_GREEN BIT6             // P1.6
 
@@ -15,6 +18,8 @@
 short redrawScreen = 1;
 //u_int fontFgColor = COLOR_GREEN;
 static char button = 0;
+
+u_int bgColor = COLOR_WHITE; 
 
 /*board methods go in here*/
 void wdt_c_handler()
@@ -42,8 +47,24 @@ void wdt_c_handler()
       break;
     }
    }
-} 
-  
+}
+Layer layer1 = {
+  (AbShape *)&circle20,
+  {(screenWidth/2), (screenHeight/2)
+  },
+  {0,0}, {0,0},
+  COLOR_RED,
+  0
+};
+Layer layer2 = {
+  (AbShape *)&circle20,
+  {(screenWidth/2), (screenHeight/2)
+  },
+  {0,0}, {0,0},
+  COLOR_BLUE,
+  0
+};
+
 
 void main()
 {
@@ -64,10 +85,12 @@ void main()
       u_int switches = p2sw_read();
       if(switches & 256){
        	clearScreen(COLOR_WHITE);
+	layerDraw(&layer1);
 	button = 1;
       }
       else if(switches & 512){
        	clearScreen(COLOR_PURPLE);
+	layerDraw(&layer2);
 	button = 2;
       }
       else if(switches & 1024){
