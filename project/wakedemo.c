@@ -30,7 +30,7 @@ void wdt_c_handler()
     secCount =0;
     switch(button){
     case(1):
-      buzzer_set_period(2000000/500);
+      // buzzer_set_period(2000000/500);
       break;
     case(2):
       green_on = 0;
@@ -46,24 +46,43 @@ void wdt_c_handler()
       buzzer_set_period(0);
       break;
     }
-   }
+  }
 }
+
+
+
+void drawHeart(char center,char height, u_int shapeColor){
 Layer layer1 = {
   (AbShape *)&circle20,
-  {(screenWidth/2), (screenHeight/2)
+  {center+17, height
   },
   {0,0}, {0,0},
-  COLOR_RED,
+  shapeColor,
   0
 };
 Layer layer2 = {
   (AbShape *)&circle20,
-  {(screenWidth/2), (screenHeight/2)
+  {center-17, height
   },
   {0,0}, {0,0},
-  COLOR_BLUE,
-  0
+  shapeColor,
+  &layer1
 };
+ layerDraw(&layer2);
+  for(u_char r = 0; r < 15; r++) {
+    for(u_char c = 0; c <= r; c++) {
+      drawPixel(center+c, r+height, shapeColor);
+      drawPixel(center-c, r+height, shapeColor);
+    }
+  }
+
+  for(u_char c = 0; c < 45; c++) {
+    for(u_char r = 12; r <= 45-c; r++) {
+      drawPixel(center+c, r+height, shapeColor);
+      drawPixel(center-c, r+height, shapeColor);
+    }
+  }
+}
 
 
 void main()
@@ -82,15 +101,17 @@ void main()
   while (1) {			/* forever */
     if (redrawScreen) {
       redrawScreen = 0;
+      
       u_int switches = p2sw_read();
+      
       if(switches & 256){
        	clearScreen(COLOR_WHITE);
-	layerDraw(&layer1);
+	drawHeart(48,84,COLOR_RED);
+	drawHeart(80,20,COLOR_BLUE);
 	button = 1;
       }
       else if(switches & 512){
        	clearScreen(COLOR_PURPLE);
-	layerDraw(&layer2);
 	button = 2;
       }
       else if(switches & 1024){
