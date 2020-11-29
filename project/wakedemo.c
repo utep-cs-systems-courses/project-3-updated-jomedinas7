@@ -96,6 +96,7 @@ void main()
   led_init();
   enableWDTInterrupts();      /**< enable periodic interrupt */
   or_sr(0x8);	              /**< GIE (enable interrupts) */
+  char heart_state = 0;
   
   /*drawing methods go in here*/
   while (1) {			/* forever */
@@ -106,8 +107,21 @@ void main()
       
       if(switches & 256){
        	clearScreen(COLOR_WHITE);
-	drawHeart(48,84,COLOR_RED);
-	drawHeart(80,20,COLOR_BLUE);
+	switch(heart_state){
+	case(2):
+	  drawHeart(48,84,COLOR_RED);
+	  break;
+	case(4):
+	  drawHeart(80,20,COLOR_BLUE);
+	  break;
+	case(6):
+	  drawHeart(50,50,COLOR_PURPLE);
+	  break;
+	case(8):
+	  heart_state = 0;
+	  break;
+	}
+	heart_state++;
 	button = 1;
       }
       else if(switches & 512){
