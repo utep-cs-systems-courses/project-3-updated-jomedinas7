@@ -124,7 +124,7 @@ void state_advance()
       dim_red_50();
       break;
     }
-    
+     
     led_changed = 1;
     led_update();
   }
