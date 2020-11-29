@@ -14,7 +14,7 @@
 
 static int notes[52] = {
 
-  500, 20, 0, 0, 40, 0, 40, 20, 60, 0,
+  FSfv, 20, 0, 0, 40, 0, 40, 20, 60, 0,
   FSfv, Dfv, Efv, Efv, Ffv, Efv, Dfv, Csfv, Dfv, Efv,
   FSfv, Bfv, Bfr, Csfv, Dfv, Efv, Dfv, Csfv, Afv, Gfv,
   FSfv, Dfv, Efv, Efv, Ffv, Efv, Dfv, Csfv, Dfv, Efv,
@@ -29,7 +29,7 @@ int beats[52] = {
   4,6,1,1,2,2,2,2,2,2,
   4,6,1,1,2,2,2,2,2,2,
   4,6,1,1,2,2,2,2,2,2,
-  4,5,
+  4,5
 };
 
 void play_song()

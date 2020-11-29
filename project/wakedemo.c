@@ -14,20 +14,47 @@
 
 short redrawScreen = 1;
 u_int fontFgColor = COLOR_GREEN;
-
+static char button = 0;
 void wdt_c_handler()
 {
   static int secCount = 0;
   
-
+  if(++secCount!= 250){
+    // drawString5x7(40,40,"goodbye",fontFgColor, COLOR_BLUE);
+    //  buzzer_set_period(2000000/700);
+    redrawScreen = 1;
+    secCount =0;
+    switch(button){
+    case(1):
+      buzzer_set_period(2000000/500);
+      break;
+    case(2):
+      // buzzer_set_period(2000000/600);
+      play_song();
+      break;
+    case(3):
+      buzzer_set_period(2000000/700);
+      break;
+    case(4):
+      buzzer_set_period(0);
+      break;
+    default:
+      buzzer_set_period(0);
+      break;
+    }
+   
+  }
+} 
   
+    
+  /* 
   secCount ++;
-  if (secCount == 250) {		/* once/sec */
+  if (secCount == 250) {	      
     secCount = 0;
     fontFgColor = (fontFgColor == COLOR_GREEN) ? COLOR_BLACK : COLOR_GREEN;
     redrawScreen = 1;
-  }
-}
+    }*/
+
   
 
 void main()
@@ -37,7 +64,8 @@ void main()
   configureClocks();
   lcd_init();
   p2sw_init(15);
-  
+  buzzer_init();
+  led_init();
   enableWDTInterrupts();      /**< enable periodic interrupt */
   or_sr(0x8);	              /**< GIE (enable interrupts) */
   
@@ -48,15 +76,23 @@ void main()
       u_int switches = p2sw_read();
       if(switches & 256){
 	clearScreen(COLOR_WHITE);
+	button = 1;
       }
-      if(switches & 512){
+      else if(switches & 512){
+	//	buzzer_set_period(2000000/370);
 	clearScreen(COLOR_PURPLE);
+	button = 2;
+	//play_song();
       }
-      if(switches & 1024){
+      else if(switches & 1024){
+	//	play_song();
+	button = 3;
 	clearScreen(COLOR_BLACK);
       }
-      if(switches & 2048){
+      else if(switches & 2048){
+	//	buzzer_set_period(0);
 	clearScreen(COLOR_RED);
+	button = 4;
       }
       drawString5x7(20,20, "hello", fontFgColor, COLOR_BLUE);
     }
