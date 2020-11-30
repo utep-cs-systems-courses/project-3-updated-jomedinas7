@@ -21,26 +21,27 @@ static char button = 0;
 
 u_int bgColor = COLOR_WHITE; 
 char heart_state = 0;
-
+int offsetHeart = 0;
 void wdt_c_handler()
 {
   u_int switches = p2sw_read();
    
   if(switches & 256){ //button 1 pressed
+    offsetHeart+=2;
     clearScreen(COLOR_WHITE);
     drawString8x12(0,0,"Press S1 <3",COLOR_RED,COLOR_WHITE);
     /*this switch statement will alternate between hearts being drawn on the lcd*/
     switch(heart_state){
     case(2):
-      drawHeart(48,84,COLOR_RED);
+      drawHeart(48+offsetHeart,84+offsetHeart,COLOR_RED);
       drawString8x12(0,0,"Press S1 again!",COLOR_RED,COLOR_WHITE);
       break;
     case(4):
-      drawHeart(80,20,COLOR_BLUE);
+      drawHeart(80+offsetHeart,20+offsetHeart,COLOR_BLUE);
       drawString8x12(0,0,"And again!",COLOR_RED,COLOR_WHITE);
       break;
     case(6):
-      drawHeart(50,50,COLOR_PURPLE);
+      drawHeart(50+offsetHeart,50+offsetHeart,COLOR_PURPLE);
        drawString8x12(0,0,"One more time?",COLOR_RED,COLOR_WHITE);
       break;
     case(8):
