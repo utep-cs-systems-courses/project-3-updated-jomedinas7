@@ -1,8 +1,50 @@
 #include <msp430.h>
 #include "stateMachines.h"
 #include "led.h"
+#include "assyStates.h"
+#include "lcdutils.h"
+#include "lcddraw.h"
+#include "buzzer.h"
 
+short noteToBuz(short note){
+  return 2000000/note;
+}
 
+void assyNoteScale()
+{
+  short note = 0;
+  
+  static char count = 0;
+  static char scaleNote = 1;
+  if(++count != 250){
+  switch(scaleNote){
+  case 1:
+    //note 350
+    clearScreen(COLOR_AQUAMARINE);
+    break;
+  case 2:
+    //note 440
+    clearScreen(COLOR_RED);
+    break;
+  case 3:
+    clearScreen(COLOR_VIOLET);
+    //note 523
+    break;
+  case 4:
+    clearScreen(COLOR_ORANGE);
+    //note 698
+    break;
+  default:
+    clearScreen(COLOR_WHITE);
+    // scaleNote = -1;
+    //note 0
+    break;
+  }
+    note = assySong(scaleNote);
+    buzzer_set_period(note);
+    scaleNote++;
+  }
+}
 void tgl_red_on()
 {
   red_on = 1;

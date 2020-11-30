@@ -14,43 +14,6 @@
 
 #define LED_GREEN BIT6             // P1.6
 
-
-short redrawScreen = 1;
-//u_int fontFgColor = COLOR_GREEN;
-static char button = 0;
-
-u_int bgColor = COLOR_WHITE; 
-
-/*board methods go in here*/
-void wdt_c_handler()
-{
-  static int secCount = 0;  
-  if(++secCount!= 250){
-    redrawScreen = 1;
-    secCount =0;
-    switch(button){
-    case(1):
-      // buzzer_set_period(2000000/500);
-      break;
-    case(2):
-      green_on = 0;
-      led_changed =1;
-      led_update();
-      play_song();
-      break;
-    case(3):
-      buzzer_set_period(2000000/700);
-      break;
-    case(4):
-      state_advance();
-      buzzer_set_period(0);
-      break;
-    }
-  }
-}
-
-
-
 void drawHeart(char center,char height, u_int shapeColor){
 Layer layer1 = {
   (AbShape *)&circle20,
@@ -85,27 +48,17 @@ Layer layer2 = {
 }
 
 
-void main()
+short redrawScreen = 1;
+
+static char button = 0;
+u_int bgColor = COLOR_WHITE; 
+char heart_state = 0;
+
+/*board methods go in here*/
+void wdt_c_handler()
 {
-  P1DIR |= LED_GREEN;		/**< Green led on when CPU on */		
-  P1OUT |= LED_GREEN;
-  configureClocks();
-  lcd_init();
-  p2sw_init(15);
-  buzzer_init();
-  led_init();
-  enableWDTInterrupts();      /**< enable periodic interrupt */
-  or_sr(0x8);	              /**< GIE (enable interrupts) */
-  char heart_state = 0;
-  
-  /*drawing methods go in here*/
-  while (1) {			/* forever */
-    if (redrawScreen) {
-      redrawScreen = 0;
-      
-      u_int switches = p2sw_read();
-      
-      if(switches & 256){
+   u_int switches = p2sw_read();
+   if(switches & 256){
        	clearScreen(COLOR_WHITE);
 	switch(heart_state){
 	case(2):
@@ -130,13 +83,94 @@ void main()
       }
       else if(switches & 1024){
 	button = 3;
-       	clearScreen(COLOR_BLACK);
       }
       else if(switches & 2048){
       	button = 4;
       }
+
+  static int secCount = 0;  
+  if(++secCount!= 250){
+    // secCount =0;
+    switch(button){
+    case(1):
+      redrawScreen = 1;
+      break;
+    case(2):
+      redrawScreen = 1;
+      play_song();
+      break;
+    case(3):
+      assyNoteScale();
+      drawString8x12(20,20,"Goodbye!", COLOR_WHITE,COLOR_BLACK);
+      redrawScreen = 1;
+      break;
+    case(4):
+      redrawScreen = 1;
+      state_advance();
+      buzzer_set_period(0);
+      break;
+    }
+  }else{
+    secCount = 0;
+    redrawScreen =1;}
+}
+
+
+
+
+
+void main()
+{
+  P1DIR |= LED_GREEN;		/**< Green led on when CPU on */		
+  P1OUT |= LED_GREEN;
+  
+  configureClocks();
+  lcd_init();
+  p2sw_init(15);
+  buzzer_init();
+  led_init();
+  enableWDTInterrupts();      /**< enable periodic interrupt */
+  or_sr(0x8);	              /**< GIE (enable interrupts) */
+  // char heart_state = 0;
+  //u_int switches = p2sw_read();
+  /*drawing methods go in here*/
+  while (1) {			/* forever */
+    if (redrawScreen) {
+      redrawScreen = 0;      
+      // u_int switches = p2sw_read();
+      
+      /* if(switches & 256){
+       	clearScreen(COLOR_WHITE);
+	switch(heart_state){
+	case(2):
+	  drawHeart(48,84,COLOR_RED);
+	  break;
+	case(4):
+	  drawHeart(80,20,COLOR_BLUE);
+	  break;
+	case(6):
+	  drawHeart(50,50,COLOR_PURPLE);
+	  break;
+	case(8):
+	  heart_state = 0;
+	  break;
+	}
+	heart_state++;
+	//button = 1;
+      }
+      else if(switches & 512){
+       	clearScreen(COLOR_PURPLE);
+	button = 2;
+      }
+      else if(switches & 1024){
+	button = 3;
+	// 	clearScreen(COLOR_BLACK);
+      }
+      else if(switches & 2048){
+      	button = 4;
+	}*/
       drawString5x7(20,20, "hello", COLOR_GREEN, COLOR_BLUE);
-      redrawScreen = 0;
+      // redrawScreen = 0;
     }
     P1OUT &= ~LED_GREEN;	/* green off */
     or_sr(0x10);		/**< CPU OFF */
