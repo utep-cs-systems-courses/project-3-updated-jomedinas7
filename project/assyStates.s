@@ -50,10 +50,10 @@ default:
 	JMP end			;
 
 convert:
-	MOV 0(R1), R12		;move note into the parameter
-	CALL #noteToBuz	;call convertNote(note)
+	MOV 0(R1), R12		;move note to parameter
+	CALL #noteToBuz	;call noteToBuz(note)
 	JMP end			;
 end:
 
-	ADD #2, R1		;reset the stack
+	ADD #2, R1		;free allocated space
 	POP R0			;return
