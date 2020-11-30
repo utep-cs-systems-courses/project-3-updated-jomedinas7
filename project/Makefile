@@ -12,10 +12,10 @@ all:wakedemo.elf
 
 
 #additional rules for files
-wakedemo.elf: ${COMMON_OBJECTS} main.o wdt_handler.o stateMachines.o led.o buzzer.o buzzerStateMachines.o assyStates.o drawing.o
+toy.elf: ${COMMON_OBJECTS} main.o wdt_handler.o stateMachines.o led.o buzzer.o buzzerStateMachines.o assyStates.o drawing.o
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd -lp2sw -lCircle -lShape
 
-load: wakedemo.elf
+load: toy.elf
 	msp430loader.sh $^
 
 clean:
