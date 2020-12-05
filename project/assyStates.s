@@ -54,6 +54,5 @@ convert:
 	CALL #noteToBuz	;call noteToBuz(note)
 	JMP end			;
 end:
-
 	ADD #2, R1		;free allocated space
 	POP R0			;return

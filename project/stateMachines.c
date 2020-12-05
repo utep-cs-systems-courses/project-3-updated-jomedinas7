@@ -5,10 +5,49 @@
 #include "lcdutils.h"
 #include "lcddraw.h"
 #include "buzzer.h"
+#include "drawing.h"
+
+void stateInit()
+
+{
+  startX = 60;
+  startY = 60;
+  heartState = 0;
+  s0IsPressed = 1;
+  s1IsPressed = 1;
+  s2IsPressed = 1;
+  s3IsPressed = 1;
+  button = 4;
+  buttonChanged = 0;
+}
+
 
 short noteToBuz(short note){
   return 2000000/note;
 }
+
+void heart_states(){
+  clearScreen(COLOR_WHITE);
+      /*this switch statement will alternate between hearts being drawn on the lcd*/
+  switch(heartState){
+      case(0):
+        drawHeart(startX,startY,COLOR_RED);
+	heartState++;
+	break;
+      case(1):
+        drawHeart(startX,startY,COLOR_BLUE);
+	heartState++;
+	break;
+      case(2):
+	drawHeart(startX,startY,COLOR_PURPLE);
+	heartState++;
+	break;
+      case(3):
+	heartState = 0;
+	break;
+      }
+}
+
 
 void assyNoteScale()
 {

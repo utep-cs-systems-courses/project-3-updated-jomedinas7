@@ -34,18 +34,19 @@ int beats[52] = {
 
 void play_song()
 {
-  static char blink_count = 0; //count to mimick interrupts
-  static char stateNote = 0; //the note that will be played
-  if(stateNote == 52){ //if we reach the end of the song
+  // static char blink_count = 0; //count to mimick interrupts
+  static char noteIndex = 0;
+  static int state = 0; //the note that will be played
+  if(noteIndex == 52){ //if we reach the end of the song
     buzzer_set_period(0); //turn off buzzer
-    blink_count = 0; //reset counts
-    stateNote = 0;
+    // blink_count = 0; //reset counts
+    noteIndex = 0;
     }
-  else if(++blink_count%(beats[stateNote]*66/2) == 0){ //timing the beats to play notes for
-    stateNote++; //move to next note
-    buzzer_set_period(2000000/notes[stateNote])//play note
+  else if(++state == beats[noteIndex]){ //timing the beats to play notes for
+    noteIndex++; //move to next note
+    buzzer_set_period(2000000/notes[noteIndex])//play note
 ;
-    blink_count == 0;//reset count
+    state = 0;//reset count
     }
   
 }
