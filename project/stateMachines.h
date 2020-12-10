@@ -4,12 +4,7 @@
 char startX;
 char startY;
 char heartState;
-char s0IsPressed;
-char s1IsPressed;
-char s2IsPressed;
-char s3IsPressed;
 char button;
-char buttonChanged;
 
 void stateInit();
 void heart_states();

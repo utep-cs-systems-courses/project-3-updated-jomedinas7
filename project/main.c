@@ -29,50 +29,28 @@ void wdt_c_handler()
   u_int switches = p2sw_read();
 
   
-  if((switches & 256)){
-    s0IsPressed = (s0IsPressed) ? 0 : 1;
-    if(button != 0){
-      buttonChanged = 1;
-    }
-    if(s0IsPressed){
+  if((switches & 1) == 0){
       button = 0;
-    }
   }
-  if((switches & 512)){
-    s1IsPressed = (s1IsPressed) ? 0 : 1;
-    if(button != 1){
-      buttonChanged = 1;
-    }
-    if(s1IsPressed){
+  if((switches & 2) == 0){
       button = 1;
-    }
   }
-  if((switches & 1024)){
-    s2IsPressed = (s2IsPressed) ? 0 : 1;
-    if(button != 2){
-      buttonChanged = 1;
-    }
-    if(s2IsPressed){
+  if((switches & 4) == 0){
       button = 2;
-    }
   }
-  if((switches & 2048)){
-    s3IsPressed = (s3IsPressed) ? 0 : 1;
-    if(button != 3){
-      buttonChanged = 1;
-    }
-    if(s3IsPressed){
+  if((switches & 8) == 0){
       button = 3;
-    }
   }
   
   switch(button){
   case 0:
-    if(secCount % 225 == 0) redrawScreen = 1;
+    if(secCount % 200 == 0) redrawScreen = 1;
     break;
   case 1:
-    if(secCount == 251)
-    redrawScreen = 1;
+    if(secCount%50 == 0){
+      redrawScreen = 1;
+      offsetHeart++;
+    }
     break;
   case 2:
     redrawScreen = 1;
@@ -108,32 +86,20 @@ void main()
    if (redrawScreen) {      
     switch(button){
     case 0:
-      if(buttonChanged){
-	tgl_green_off();
-	clearScreen(COLOR_WHITE);
-      }
       heart_states();
+      buzzer_set_period(0);
       break;
     case 1:
-      if(buttonChanged){
-	tgl_green_off();
-	clearScreen(COLOR_WHITE);
-      }
-       drawHeart(60,70,COLOR_YELLOW);
-     //drawString8x12(15,30,"Now playing:",COLOR_WHITE,COLOR_PURPLE);
+      drawHeart(60,70+offsetHeart,COLOR_YELLOW);
      break;
     case 2:
-      if(buttonChanged){
-	tgl_green_off();
-	clearScreen(COLOR_BLACK);
-      }
       play_song();
+      state_advance();
       break;
     case 3:
       assyNoteScale();
       break;
     }
-    buttonChanged = 0;
     redrawScreen = 0;
    }
     P1OUT &= ~LED_GREEN;	/* green off */

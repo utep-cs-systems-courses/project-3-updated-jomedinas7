@@ -42,7 +42,7 @@ void play_song()
     // blink_count = 0; //reset counts
     noteIndex = 0;
     }
-  else if(++state == beats[noteIndex]){ //timing the beats to play notes for
+  else if(++state == (beats[noteIndex]*33)){ //timing the beats to play notes for
     noteIndex++; //move to next note
     buzzer_set_period(2000000/notes[noteIndex])//play note
 ;

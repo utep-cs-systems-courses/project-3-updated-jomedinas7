@@ -2,6 +2,7 @@
 #include "lcddraw.h"
 #include "abCircle.h"
 #include "shape.h"
+#include "drawing.h"
 
 void drawHeart(char center,char height, u_int shapeColor)
 {
