@@ -16,7 +16,7 @@ assySong:
 	SUB #2,R1		;allocate memory for short
 	MOV #0,0(R1)		;note = 0
 	CMP #0, R12		;state - 0
-	JLO default		;state < 0 (signed comparison)
+	JL default		;state < 0 (signed comparison)
 	CMP #4, R12		;state - 4
 	JC  default		;state >= 4 (unsigned comparison)
 
