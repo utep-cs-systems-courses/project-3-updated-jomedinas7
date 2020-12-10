@@ -90,6 +90,7 @@ void main()
       buzzer_set_period(0);
       break;
     case 1:
+      drawString8x12(30, 30,"Ciao :)",COLOR_PURPLE, COLOR_WHITE);
       drawHeart(60,70+offsetHeart,COLOR_YELLOW);
      break;
     case 2:

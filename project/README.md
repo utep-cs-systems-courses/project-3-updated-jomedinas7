@@ -29,14 +29,12 @@ On the your green board with the screen, you will see buttons S1-S4.
 - Pressing **S1**: Grab your nearest platonic friend and or romantic interest
   and show them a vast(not very vast) assortment of freshly drawn hearts.
 
-- Pressing **S2**: Grab your nearest Italian or Otaku friend and ask them what
-  song is playing when you press this button. (Hint: it's on the screen.)
+- Pressing **S2**: A yellow heart will begin to move down the screen. Don't
+  worry, it'll come back.  :D
 
-- Pressing **S3**: Pause that nonsense, you probably don't want to hear that
-  forever. (Unless you have some sort of mental disorder.) Either way, too
-  much exposure is bound to drive anyone mad.
-
-- Pressing **S4**: Kiss your friendly toy "Goodbye". You'll hear a sound that to
-  let you know that your playtime is over, along with a message. In this state, no more buttons will
-  work and you'll have to restart your toy to get playing again. We don't make
-  the rules (except we do).
+- Pressing **S3**: Play a nice song to pass watch at an Italian opera of some
+  sort.This will also cycle different red LED dim percentages. (Press any
+  button on 75% dimness to pause the lights and LCD.)
+  
+- Pressing **S4**: This state brought to you by assembly. Lights and a nice
+  short jingle on repeat.
