@@ -57,7 +57,7 @@ void assyNoteScale()
     switch(scaleNote){
     case 1:
       //note 350
-      clearScreen(COLOR_AQUAMARINE);
+      // clearScreen(COLOR_AQUAMARINE);
       break;
     case 2:
       //note 440

@@ -12,12 +12,12 @@
 	.global convert
 
 convert:
-
-	MOV &scaleNote, R12	;
-	CALL #assySong
-	MOV R12, &note
-	MOV &note, R12
-	CALL #buzzer_set_period
+	
+	MOV &scaleNote, R12	; scaleNote as param
+	CALL #assySong		; assySong(scaleNote)
+	MOV R12, &note		; note = assySong(scaleNote);incoming return value
+	MOV &note, R12		;note as param
+	CALL #buzzer_set_period	; buzzer_set_period(note)
 
 end:
 	POP R0
