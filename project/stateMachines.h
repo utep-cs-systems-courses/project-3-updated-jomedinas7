@@ -1,11 +1,16 @@
 #ifndef stateMachine_included
 #define stateMachine_included
 
+char scaleNote;
+short note;
+char count;
+
 char startX;
 char startY;
 char heartState;
 char button;
 
+void convert();
 void stateInit();
 void heart_states();
 void assyNoteScale();

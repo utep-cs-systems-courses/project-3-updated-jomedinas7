@@ -12,7 +12,7 @@ all:wakedemo.elf
 
 
 #additional rules for files
-toy.elf: ${COMMON_OBJECTS} main.o wdt_handler.o stateMachines.o led.o buzzer.o buzzerStateMachines.o assyStates.o drawing.o
+toy.elf: ${COMMON_OBJECTS} main.o wdt_handler.o stateMachines.o led.o buzzer.o buzzerStateMachines.o assyStates.o drawing.o assyNotes.o
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd -lp2sw -lCircle -lShape
 
 load: toy.elf

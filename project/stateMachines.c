@@ -7,6 +7,10 @@
 #include "buzzer.h"
 #include "drawing.h"
 
+char scaleNote = 1;
+short note = 0;  
+char count = 0;
+  
 void stateInit()
 
 {
@@ -48,36 +52,34 @@ void heart_states(){
 
 void assyNoteScale()
 {
-  short note = 0;
   
-  static char count = 0;
-  static char scaleNote = 1;
   if(++count != 250){
-  switch(scaleNote){
-  case 1:
-    //note 350
-    clearScreen(COLOR_AQUAMARINE);
-    break;
-  case 2:
-    //note 440
-    clearScreen(COLOR_RED);
-    break;
-  case 3:
-    clearScreen(COLOR_VIOLET);
-    //note 523
-    break;
-  case 4:
-    clearScreen(COLOR_ORANGE);
-    //note 698
-    break;
-  default:
-    clearScreen(COLOR_WHITE);
-    // scaleNote = -1;
-    //note 0
-    break;
-  }
-    note = assySong(scaleNote);
-    buzzer_set_period(note);
+    switch(scaleNote){
+    case 1:
+      //note 350
+      clearScreen(COLOR_AQUAMARINE);
+      break;
+    case 2:
+      //note 440
+      clearScreen(COLOR_RED);
+      break;
+    case 3:
+      clearScreen(COLOR_VIOLET);
+      //note 523
+      break;
+    case 4:
+      clearScreen(COLOR_ORANGE);
+      //note 698
+      break;
+    default:
+      clearScreen(COLOR_WHITE);
+      // scaleNote = -1;
+      //note 0
+      break;
+    }
+    //note = assySong(scaleNote);
+    //buzzer_set_period(note);
+    convert();
     if(scaleNote == 4){
       scaleNote = 0;
     }else{
